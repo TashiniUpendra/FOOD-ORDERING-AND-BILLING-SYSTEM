@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Register — SnapEats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #fff8f6, #ffe7e0);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .navbar-brand {
+      font-size: 28px;
+      font-weight: 700;
+      color: #ff5733 !important;
+    }
+
+    .card-elevated {
+      border-radius: 18px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease;
+      padding: 30px;
+    }
+
+    .btn-primary {
+      background: #ff5733;
+      border: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      background: #e14a24;
+      transform: scale(1.05);
+    }
+
+    .form-control {
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .btn-rounded {
+      border-radius: 25px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1060;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg px-4">
+  <a class="navbar-brand" href="index.html">SnapEats</a>
+</nav>
+
+<!-- REGISTER FORM -->
+<div class="container py-5" style="max-width: 500px;">
+  <div class="card card-elevated">
+    <h3 class="fw-bold mb-3 text-center" style="color:#ff5733;">Create Account</h3>
+    <p class="text-center text-muted mb-4">Join SnapEats and start ordering your favorite meals!</p>
+
+    <form id="registerForm">
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Full Name</label>
+        <input type="text" class="form-control" placeholder="Your full name" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Email</label>
+        <input type="email" class="form-control" placeholder="you@example.com" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Phone</label>
+        <input type="tel" class="form-control" placeholder="07XXXXXXXX" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label fw-semibold">Password</label>
+        <input type="password" class="form-control" placeholder="Enter password" required>
+      </div>
+
+      <div class="d-flex justify-content-between mt-4">
+        <a href="login.html" class="btn btn-outline-secondary btn-rounded">Back to Login</a>
+        <button type="submit" class="btn btn-primary btn-rounded">Register</button>
+      </div>
+    </form>
+
+    <!-- Alert placeholder -->
+    <div id="register-alert" class="mt-3" style="display:none;"></div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer text-center mt-5">
+  <p>&copy; 2025 SnapEats — All Rights Reserved</p>
+</footer>
+
+<script src="assets/js/script.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const form = document.getElementById('registerForm');
+  const alertDiv = document.getElementById('register-alert');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // Mock check: show success always
+    const success = true; // you can randomize or add validation
+
+    if(success){
+      alertDiv.innerHTML = `<div class="alert alert-success" role="alert">
+        ✅ Account created successfully!
+      </div>`;
+      alertDiv.style.display = 'block';
+      showToast('Account created successfully!');
+      form.reset();
+    } else {
+      alertDiv.innerHTML = `<div class="alert alert-danger" role="alert">
+        ❌ Registration failed. Try again.
+      </div>`;
+      alertDiv.style.display = 'block';
+      showToast('Registration failed!');
+    }
+  });
+
+  // Toast function
+  function showToast(msg){
+    const toast = document.createElement('div');
+    toast.className = 'toast align-items-center show';
+    toast.innerHTML = `
+      <div class="d-flex p-2 bg-light rounded shadow">
+        <div class="toast-body">${msg}</div>
+        <button class="btn-close ms-2 me-1" onclick="this.closest('.toast').remove()"></button>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    setTimeout(()=>toast.remove(), 3000);
+  }
+</script>
+
+</body>
+</html>

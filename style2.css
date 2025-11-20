@@ -1,0 +1,78 @@
+/* styles.css - custom styling */
+:root{
+  --brand:#ff5a5f;
+  --muted:#6c757d;
+  --card-bg: #ffffff;
+  --glass: rgba(255,255,255,0.75);
+  --accent: #ffbd59;
+  --shadow: 0 6px 20px rgba(15,23,42,0.08);
+  --radius: 18px;
+}
+
+*{box-sizing:border-box}
+body{
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, #fff 0%, #f7f9fc 100%);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* NAVBAR */
+.navbar-brand { font-weight:700; color:var(--brand)!important; letter-spacing:0.2px; }
+.navbar { background: transparent; }
+
+/* HERO */
+.hero{
+  background: linear-gradient(90deg, rgba(255,90,95,0.06), rgba(255,189,89,0.04));
+  padding: 60px 0;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* CARDS */
+.card-elevated{
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border:0;
+}
+
+/* MENU ITEM */
+.food-img{
+  min-height:160px;
+  object-fit:cover;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+/* BADGES & BUTTONS */
+.badge-discount{
+  background: linear-gradient(90deg,#ff9a76,#ff5a5f);
+  color:white;
+  font-weight:600;
+}
+
+/* FOOTER */
+.site-footer{
+  background: transparent;
+  padding: 26px 0;
+  color: var(--muted);
+}
+
+/* small tweaks */
+.section-title{
+  font-weight:700;
+  margin-bottom:16px;
+  font-size:1.125rem;
+}
+
+.btn-rounded{
+  border-radius: 14px;
+  padding: 10px 18px;
+}
+
+/* responsive helpers */
+@media (max-width: 767px){
+  .hero{ padding: 30px 0; }
+  .food-img{ min-height:140px; }
+}

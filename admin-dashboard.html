@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Admin Dashboard — SnapEats</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand" href="index.html">SnapEats</a>
+    <div class="ms-auto">
+      <a class="btn btn-outline-primary btn-sm" href="admin-menu.html">Manage Menu</a>
+    </div>
+  </nav>
+
+  <main class="container py-4">
+    <h3 class="section-title">Admin Dashboard</h3>
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5>Sales Overview</h5>
+          <p>Total orders: <strong id="totalOrders">0</strong></p>
+          <p>Total revenue: <strong id="totalRevenue">LKR 0</strong></p>
+          <a href="sales-report.html" class="btn btn-outline-secondary btn-sm">View report</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5>Recent Orders</h5>
+          <div id="recentOrders"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    function loadAdmin(){
+      const orders = JSON.parse(localStorage.getItem('snapEats_orders') || '[]');
+      document.getElementById('totalOrders').textContent = orders.length;
+      const rev = orders.reduce((s,o)=> s + (o.total||0), 0);
+      document.getElementById('totalRevenue').textContent = `LKR ${rev}`;
+      const area = document.getElementById('recentOrders');
+      if(orders.length===0) area.innerHTML = `<small class="text-muted">No orders yet</small>`;
+      else area.innerHTML = `<ul>${orders.slice(-5).reverse().map(o=>`<li>${o.id} — ${o.name} — LKR ${o.total}</li>`).join('')}</ul>`;
+    }
+    document.addEventListener('DOMContentLoaded', loadAdmin);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Login — SnapEats</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- BOOTSTRAP -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- GOOGLE FONT -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- CUSTOM STYLES -->
+  <style>
+    body {
+      background: linear-gradient(135deg, #fff8f6, #ffe7e0);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .login-card {
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      backdrop-filter: blur(10px);
+      background: rgba(255,255,255,0.95);
+      animation: slideUp 1s ease;
+    }
+
+    .login-left {
+      background: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=900&q=80') center/cover no-repeat;
+      min-height: 420px;
+    }
+
+    .login-left-overlay {
+      background: rgba(0,0,0,0.4);
+      height: 100%;
+      color: #fff;
+      padding: 30px;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      border-radius: 20px 0 0 20px;
+    }
+
+    .login-left-overlay h2 {
+      font-weight: 700;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .login-left-overlay p {
+      opacity: 0.9;
+      font-size: 14px;
+    }
+
+    .form-control {
+      border-radius: 12px;
+      padding: 12px;
+      font-size: 15px;
+    }
+
+    .btn-primary {
+      background: #ff5733;
+      border: none;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 12px;
+      transition: 0.3s;
+    }
+    .btn-primary:hover {
+      background: #e14a2b;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+    @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    .toast {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 1060;
+      animation: fadeIn 0.5s ease;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand text-dark fw-bold fs-4" href="index.html">SnapEats</a>
+  </nav>
+
+  <!-- LOGIN SECTION -->
+  <main class="container py-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="row login-card">
+
+          <!-- LEFT IMAGE AREA -->
+          <div class="col-md-5 login-left d-none d-md-block">
+            <div class="login-left-overlay">
+              <h2>Welcome Back!</h2>
+              <p>Order your favorite meals faster. Fresh, hot and delivered with love ❤️</p>
+            </div>
+          </div>
+
+          <!-- RIGHT FORM AREA -->
+          <div class="col-md-7 p-5 bg-white">
+            <div class="text-center mb-4">
+              <img src="https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=200&q=80"
+                   width="90" class="img-fluid rounded-3" alt="SnapEats Logo">
+            </div>
+
+            <h3 class="mb-3 text-center" style="color:#ff5733; font-weight:700;">Sign in to SnapEats</h3>
+
+            <form id="loginForm">
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Email</label>
+                <input required type="email" class="form-control" placeholder="you@example.com">
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label fw-semibold">Password</label>
+                <input required type="password" class="form-control" placeholder="••••••">
+              </div>
+
+              <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+
+              <div class="text-center">
+                <small>Don’t have an account? 
+                  <a href="register.html" class="text-decoration-none fw-semibold" style="color:#ff5733;">Create one</a>
+                </small>
+              </div>
+            </form>
+
+            <hr>
+            <div class="text-center">
+              <small class="text-muted">
+                Mock Admin / Employee login available. Customers can register normally.
+              </small>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- TOAST & SCRIPT -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Toast function
+    function showToast(msg){
+      const toast = document.createElement('div');
+      toast.className = 'toast align-items-center show';
+      toast.innerHTML = `
+        <div class="d-flex p-2 bg-light rounded shadow">
+          <div class="toast-body">${msg}</div>
+          <button class="btn-close ms-2 me-1" onclick="this.closest('.toast').remove()"></button>
+        </div>
+      `;
+      document.body.appendChild(toast);
+      setTimeout(()=>toast.remove(), 3000);
+    }
+
+    // Handle login form submit
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      showToast('Login successful!');
+
+      // Redirect to menu.html after 1.5 seconds
+      setTimeout(()=> window.location.href='menu.html', 1500);
+    });
+  </script>
+
+</body>
+</html>

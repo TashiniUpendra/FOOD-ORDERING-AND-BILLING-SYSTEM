@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Menu Management — SnapEats</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/styles.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg px-4">
+    <a class="navbar-brand" href="index.html">SnapEats</a>
+  </nav>
+
+  <main class="container py-4">
+    <h3 class="section-title">Manage Menu Items</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5>Add / Update Item</h5>
+          <form id="menuForm" onsubmit="event.preventDefault(); saveMenuItem();">
+            <input type="hidden" id="itemId">
+            <div class="mb-2"><input id="itemName" class="form-control" placeholder="Item name" required></div>
+            <div class="mb-2"><input id="itemPrice" type="number" class="form-control" placeholder="Price" required></div>
+            <div class="mb-2">
+              <select id="itemCategory" class="form-select">
+                <option>Starters</option><option>Main</option><option>Sides</option><option>Desserts</option><option>Drinks</option>
+              </select>
+            </div>
+            <div class="mb-2"><input id="itemImg" class="form-control" placeholder="Image URL"></div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-primary">Save</button>
+              <button type="button" class="btn btn-outline-secondary" onclick="resetForm()">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card p-3">
+          <h5>Existing Items</h5>
+          <div id="itemsList"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    function refreshItems(){
+      const list = document.getElementById('itemsList');
+      // use MENU global initial data
+      const stored = JSON.parse(localStorage.getItem('snapEats_menu'));
+      const items = stored || MENU;
+      localStorage.setItem('snapEats_menu', JSON.stringify(items));
+      list.innerHTML = items.map(it=>`<div class="d-flex justify-content-between align-items-center p-2 border-bottom">
+        <div><strong>${it.name}</strong><br><small class="text-muted">${it.category} — LKR ${it.price}</small></div>
+        <div>
+          <button class="btn btn-sm btn-outline-primary" onclick='editItem(${JSON.stringify(it)})'>Edit</button>
+          <button class="btn btn-sm btn-outline-danger" onclick='deleteItem(${it.id})'>Delete</button>
+        </div>
+      </div>`).join('');
+    }
+    function saveMenuItem(){
+      const stored = JSON.parse(localStorage.getItem('snapEats_menu') || '[]');
+      const id = document.getElementById('itemId').value;
+      const payload = {
+        id: id ? Number(id) : Date.now(),
+        name: document.getElementById('itemName').value,
+        price: Number(document.getElementById('itemPrice').value),
+        category: document.getElementById('itemCategory').value,
+        img: document.getElementById('itemImg').value || 'https://picsum.photos/seed/'+Math.floor(Math.random()*999)+'/600/400',
+        desc: 'Tasty item'
+      };
+      if(id){
+        const idx = stored.findIndex(s=>s.id===Number(id));
+        if(idx>=0) stored[idx]=payload;
+        else stored.push(payload);
+      } else stored.push(payload);
+      localStorage.setItem('snapEats_menu', JSON.stringify(stored));
+      showToast('Saved menu item');
+      resetForm();
+      refreshItems();
+    }
+    function editItem(item){
+      document.getElementById('itemId').value = item.id;
+      document.getElementById('itemName').value = item.name;
+      document.getElementById('itemPrice').value = item.price;
+      document.getElementById('itemCategory').value = item.category;
+      document.getElementById('itemImg').value = item.img;
+    }
+    function deleteItem(id){
+      if(!confirm('Delete this item?')) return;
+      let stored = JSON.parse(localStorage.getItem('snapEats_menu') || '[]');
+      stored = stored.filter(s=>s.id !== id);
+      localStorage.setItem('snapEats_menu', JSON.stringify(stored));
+      refreshItems();
+    }
+    function resetForm(){
+      document.getElementById('menuForm').reset();
+      document.getElementById('itemId').value = '';
+    }
+    document.addEventListener('DOMContentLoaded', refreshItems);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
