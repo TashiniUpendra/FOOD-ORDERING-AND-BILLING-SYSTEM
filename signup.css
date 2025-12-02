@@ -1,0 +1,74 @@
+/* Animated Gradient Background */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    background: linear-gradient(45deg, #ff6b35, #ffae35, #ff5733, #ff8d1a);
+    background-size: 400% 400%;
+    animation: gradientMove 10s ease infinite;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Signup Box */
+.signup-container {
+    width: 350px;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+    animation: fadeUp 0.8s ease-out;
+}
+
+@keyframes fadeUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #ff6b35;
+}
+
+label {
+    display: block;
+    margin: 12px 0 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.btn {
+    margin-top: 20px;
+    width: 100%;
+    padding: 12px;
+    background: #ff6b35;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.login-link {
+    margin-top: 15px;
+    text-align: center;
+}
