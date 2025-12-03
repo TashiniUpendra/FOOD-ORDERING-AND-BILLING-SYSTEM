@@ -1,106 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu | SnapEats</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapEats | Menu</title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #fafafa;
-        }
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-        /* Navbar */
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            padding: 15px 25px;
-            background: white;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
-        }
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(180deg, #fff8f6, #ffe7e0);
+    }
 
-        .logo {
-            color: #ff6b35;
-            margin: 0;
-            font-size: 22px;
-            font-weight: bold;
-        }
+    /* Glassmorphism Navbar */
+    .navbar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 35px;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        z-index: 10;
+    }
 
-        .navbar nav a {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #333;
-            font-weight: bold;
-        }
+    .logo {
+        font-size: 26px;
+        font-weight: 600;
+        color: #ff6b35;
+    }
 
-        .navbar nav a.active {
-            color: #ff6b35;
-        }
+    .navbar nav a {
+        margin-left: 22px;
+        text-decoration: none;
+        font-weight: 500;
+        color: #333;
+        transition: 0.3s;
+    }
 
-        /* Menu Layout */
-        .menu-container {
-            max-width: 1100px;
-            margin: 40px auto;
-            padding: 20px;
-        }
+    .navbar nav a:hover,
+    .navbar nav a.active {
+        color: #ff6b35;
+    }
 
-        .menu-container h2 {
-            color: #ff6b35;
-            text-align: center;
-            margin-bottom: 25px;
-        }
+    /* Menu Container */
+    .menu-container {
+        max-width: 1250px;
+        margin: 50px auto;
+        padding: 20px;
+    }
 
-        .menu-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-        }
+    .menu-container h2 {
+        text-align: center;
+        font-size: 34px;
+        color: #222;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
 
-        .menu-item {
-            background: white;
-            padding: 15px;
-            border-radius: 12px;
-            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
-            text-align: center;
-        }
+    /* Cards Grid */
+    .menu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 30px;
+    }
 
-        .menu-item img {
-            width: 100%;
-            height: 170px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
+    /* Pretty Card */
+    .menu-item {
+        background: #fff;
+        border-radius: 18px;
+        padding: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: 0.3s ease;
+        overflow: hidden;
+    }
 
-        .menu-item h3 {
-            margin: 0 0 8px;
-        }
+    .menu-item:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 18px 40px rgba(0,0,0,0.12);
+    }
 
-        .price {
-            font-size: 18px;
-            color: #ff6b35;
-            font-weight: bold;
-        }
+    .menu-item img {
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+        border-radius: 14px;
+        margin-bottom: 12px;
+        transition: 0.3s;
+    }
 
-        .btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 14px;
-            background: #ff6b35;
-            color: white;
-            border-radius: 6px;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-        }
-    </style>
+    .menu-item img:hover {
+        transform: scale(1.04);
+    }
+
+    .menu-item h3 {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: #222;
+    }
+
+    .menu-item p {
+        font-size: 14px;
+        color: #666;
+        margin: 6px 0;
+    }
+
+    .price {
+        font-size: 20px;
+        font-weight: bold;
+        color: #ff6b35;
+        margin-top: 8px;
+    }
+
+    .btn {
+        width: 100%;
+        display: block;
+        margin-top: 12px;
+        padding: 12px;
+        background: #ff6b35;
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: 0.3s;
+    }
+
+    .btn:hover {
+        background: #e45a2e;
+    }
+
+</style>
 </head>
+
 <body>
 
+    <!-- Navbar -->
     <header class="navbar">
-        <h2 class="logo">SnapEats</h2>
+        <div class="logo">SnapEats</div>
         <nav>
             <a href="index.html">Home</a>
             <a href="menu.html" class="active">Menu</a>
@@ -109,67 +154,66 @@
         </nav>
     </header>
 
+    <!-- Menu Section -->
     <div class="menu-container">
-        <h2>Our Menu</h2>
+        <h2>Our Delicious Menu</h2>
 
-        <div class="menu-grid" id="menuList">
-            <!-- Items will load here -->
-        </div>
+        <div class="menu-grid" id="menuList"></div>
     </div>
 
-    <script>
-      
-        const menuItems = [
-            { 
-                name: "Chicken Burger", 
-                price: 6.50, 
-                desc: "Grilled chicken with lettuce",
-                img: "https://images.unsplash.com/photo-1606755962773-0be2aa58c870"
-            },
-            { 
-                name: "Beef Steak", 
-                price: 12.00, 
-                desc: "Juicy sirloin steak",
-                img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
-            },
-            { 
-                name: "Spring Rolls", 
-                price: 3.00, 
-                desc: "Crispy vegetable rolls",
-                img: "https://images.unsplash.com/photo-1627664515265-4d52e05db91e"
-            },
-            { 
-                name: "Chocolate Cake", 
-                price: 4.00, 
-                desc: "Rich chocolate slice",
-                img: "https://images.unsplash.com/photo-1599785209707-cd4a41605802"
-            },
-            { 
-                name: "Coke", 
-                price: 1.50, 
-                desc: "Chilled 330ml can",
-                img: "https://images.unsplash.com/photo-1600093463593-dc99eae34a75"
-            }
-        ];
+<script>
+    
+    const menuItems = [
+        { 
+            name: "Chicken Burger", 
+            price: 6.50, 
+            desc: "Grilled chicken, crispy lettuce, spicy mayo.",
+            img: "https://images.unsplash.com/photo-1606755962773-0be2aa58c870"
+        },
+        { 
+            name: "Beef Steak", 
+            price: 12.00, 
+            desc: "Juicy sirloin steak cooked to perfection.",
+            img: "https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
+        },
+        { 
+            name: "Spring Rolls", 
+            price: 3.00, 
+            desc: "Crispy rolls stuffed with veggies.",
+            img: "https://images.unsplash.com/photo-1627664515265-4d52e05db91e"
+        },
+        { 
+            name: "Chocolate Cake", 
+            price: 4.00, 
+            desc: "Rich, moist, and delicious cake slice.",
+            img: "https://images.unsplash.com/photo-1599785209707-cd4a41605802"
+        },
+        { 
+            name: "Coca-Cola", 
+            price: 1.50, 
+            desc: "Refreshing cold drink.",
+            img: "https://images.unsplash.com/photo-1600093463593-dc99eae34a75"
+        }
+    ];
 
-        let menuList = document.getElementById("menuList");
+    let menuList = document.getElementById("menuList");
 
-        
-        menuItems.forEach(item => {
-            let card = document.createElement("div");
-            card.classList.add("menu-item");
+    
+    menuItems.forEach(item => {
+        let card = document.createElement("div");
+        card.classList.add("menu-item");
 
-            card.innerHTML = `
-                <img src="${item.img}" alt="${item.name}">
-                <h3>${item.name}</h3>
-                <p>${item.desc}</p>
-                <p class="price">$${item.price.toFixed(2)}</p>
-                <button class="btn">Add to Cart</button>
-            `;
+        card.innerHTML = `
+            <img src="${item.img}" alt="${item.name}">
+            <h3>${item.name}</h3>
+            <p>${item.desc}</p>
+            <p class="price">$${item.price.toFixed(2)}</p>
+            <button class="btn">Add to Cart</button>
+        `;
 
-            menuList.appendChild(card);
-        });
-    </script>
+        menuList.appendChild(card);
+    });
+</script>
 
 </body>
 </html>
