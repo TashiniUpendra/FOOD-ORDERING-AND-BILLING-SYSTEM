@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapEats | Order History</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #f2f2f7;
+        color: #111;
+    }
+
+    /* Glass Navbar */
+    .navbar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 35px;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        z-index: 10;
+    }
+
+    .logo {
+        font-size: 26px;
+        font-weight: 600;
+        color: #ff6b35;
+    }
+
+    .navbar nav a {
+        margin-left: 22px;
+        text-decoration: none;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .navbar nav a.active,
+    .navbar nav a:hover {
+        color: #ff6b35;
+    }
+
+    /* Page */
+    .container {
+        max-width: 1000px;
+        margin: 45px auto;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 34px;
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    /* Order Card */
+    .order-card {
+        background: #fff;
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        margin-bottom: 25px;
+    }
+
+    .order-header {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+    }
+
+    .order-header h3 {
+        margin: 0;
+        font-size: 20px;
+    }
+
+    .order-status {
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .completed {
+        background: #e8f8ef;
+        color: #1e874b;
+    }
+
+    .preparing {
+        background: #fff4e5;
+        color: #b45309;
+    }
+
+    .order-meta {
+        display: flex;
+        gap: 18px;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+    }
+
+    .items {
+        border-top: 1px solid #eee;
+        padding-top: 12px;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        font-size: 15px;
+        margin: 6px 0;
+    }
+
+    .total {
+        text-align: right;
+        margin-top: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #ff6b35;
+    }
+
+    .empty {
+        text-align: center;
+        font-size: 18px;
+        color: #666;
+        margin-top: 80px;
+    }
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">SnapEats</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="order-history.html" class="active">Orders</a>
+        <a href="login.html">Login</a>
+    </nav>
+</header>
+
+<div class="container">
+    <h2>Your Order History</h2>
+    <div id="orderList"></div>
+</div>
+
+<script>
+    const orderList = document.getElementById("orderList");
+
+    let orders = [];
+    try {
+        orders = JSON.parse(localStorage.getItem("snap_orders")) || [];
+    } catch {
+        orders = [];
+    }
+
+    if (orders.length === 0) {
+        orderList.innerHTML = `
+            <div class="empty">
+                You have not placed any orders yet 🍽️
+            </div>
+        `;
+    } else {
+        orders.forEach(order => {
+            const status = Date.now() > order.when ? "Completed" : "Preparing";
+            const statusClass = status === "Completed" ? "completed" : "preparing";
+
+            let itemsHTML = "";
+            order.items.forEach(item => {
+                itemsHTML += `
+                    <div class="item">
+                        <span>${item.name} × ${item.qty}</span>
+                        <span>$${(item.price * item.qty).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            const card = document.createElement("div");
+            card.className = "order-card";
+
+            card.innerHTML = `
+                <div class="order-header">
+                    <h3>Order #${order.id}</h3>
+                    <span class="order-status ${statusClass}">${status}</span>
+                </div>
+
+                <div class="order-meta">
+                    <span><strong>Date:</strong> ${new Date(order.created).toLocaleString()}</span>
+                    <span><strong>Pickup:</strong> ${new Date(order.when).toLocaleTimeString()}</span>
+                    <span><strong>Payment:</strong> ${order.paymentMethod}</span>
+                </div>
+
+                <div class="items">
+                    ${itemsHTML}
+                </div>
+
+                <div class="total">
+                    Total: $${order.subtotal.toFixed(2)}
+                </div>
+            `;
+
+            orderList.appendChild(card);
+        });
+    }
+</script>
+
+</body>
+</html>
