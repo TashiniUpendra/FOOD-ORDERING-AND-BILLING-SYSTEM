@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SnapEats | Checkout</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #f2f2f7;
+    }
+
+    /* Glass Navbar */
+    .navbar {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 18px 35px;
+        backdrop-filter: blur(12px);
+        background: rgba(255, 255, 255, 0.75);
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    .logo {
+        font-size: 26px;
+        font-weight: 600;
+        color: #ff6b35;
+    }
+
+    .navbar nav a {
+        margin-left: 22px;
+        text-decoration: none;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .navbar nav a.active {
+        color: #ff6b35;
+    }
+
+    /* Page Layout */
+    .checkout-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 34px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #222;
+    }
+
+    /* Checkout Card */
+    .checkout-card {
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 6px;
+        color: #333;
+    }
+
+    input, select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        font-family: inherit;
+    }
+
+    input:focus, select:focus {
+        outline: none;
+        border-color: #ff6b35;
+    }
+
+    /* Order Summary */
+    .summary {
+        margin-top: 25px;
+        padding: 20px;
+        border-radius: 16px;
+        background: #fafafa;
+    }
+
+    .summary p {
+        font-size: 18px;
+        margin: 8px 0;
+        font-weight: 500;
+        color: #333;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .place-order-btn {
+        margin-top: 25px;
+        width: 100%;
+        padding: 14px;
+        background: #ff6b35;
+        color: #fff;
+        border: none;
+        border-radius: 12px;
+        font-size: 18px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .place-order-btn:hover {
+        background: #e45a2e;
+    }
+
+</style>
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">SnapEats</div>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="menu.html">Menu</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html" class="active">Checkout</a>
+    </nav>
+</header>
+
+<div class="checkout-container">
+    <h2>Checkout</h2>
+
+    <div class="checkout-card">
+        <form id="checkoutForm">
+
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" required>
+            </div>
+
+            <div class="form-group">
+                <label>Pickup Time (minutes)</label>
+                <select>
+                    <option>15</option>
+                    <option>20</option>
+                    <option>30</option>
+                    <option>45</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Payment Method</label>
+                <select>
+                    <option>Pay at Counter</option>
+                    <option>Card (Coming Soon)</option>
+                </select>
+            </div>
+
+            <div class="summary">
+                <p><span>Subtotal</span><span>$16.50</span></p>
+                <p><span>Tax</span><span>$1.65</span></p>
+                <p><strong>Total</strong><strong>$18.15</strong></p>
+            </div>
+
+            <button class="place-order-btn" type="submit">
+                Place Order
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("checkoutForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        alert("Order placed successfully! 🎉");
+        window.location.href = "order-confirmation.html";
+    });
+</script>
+
+</body>
+</html>
