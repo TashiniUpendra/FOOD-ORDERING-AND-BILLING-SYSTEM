@@ -1,4 +1,4 @@
-/* Animated Gradient Background */
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -12,7 +12,6 @@ body {
     align-items: center;
 }
 
-/* Gradient Animation */
 @keyframes gradientMove {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -73,3 +72,4 @@ input {
     margin-top: 15px;
     text-align: center;
 }
+
