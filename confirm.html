@@ -46,6 +46,7 @@
 
   <script src="assets/js/script.js"></script>
   <script>
+    
     function renderSummary(){
       const t = cartTotals();
       const cart = loadCart();
@@ -55,13 +56,14 @@
       html += `</ul><hr><p>Subtotal: LKR ${t.subtotal}</p><p>Tax: LKR ${t.tax}</p><h5>Total: LKR ${t.total}</h5>`;
       area.innerHTML = html;
     }
+    
     function placeOrder(){
-      // mock: save simple order and redirect to tracking with order id
+      
       const name = document.getElementById('custName').value;
       const phone = document.getElementById('custPhone').value;
       const pickup = document.getElementById('pickupTime').value;
       if(!name||!phone||!pickup) return showToast('Please fill all fields');
-      // create a simple order object
+      
       const order = {
         id: 'ORD' + Math.floor(Math.random()*100000),
         items: loadCart(),
