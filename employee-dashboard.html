@@ -2,74 +2,130 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Employee Dashboard</title>
+  <title>Employee Dashboard — SnapEats</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
   <style>
     body {
-      background-color: #f0f4f8;
-      font-family: Arial, sans-serif;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+
+      /* SAME SNAP EATS GRADIENT */
+      background: linear-gradient(45deg, #ff6b35, #ffae35, #ff5733, #ff8d1a);
+      background-size: 400% 400%;
+      animation: gradientMove 10s ease infinite;
     }
-    
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glass Header */
     .header {
-      background: linear-gradient(90deg, #4b6cb7, #182848);
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      border-radius: 10px;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 30px;
       margin-bottom: 30px;
-      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      animation: fadeUp 0.8s ease;
     }
-    
+
+    @keyframes fadeUp {
+      from { transform: translateY(30px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
     .header img {
-      width: 80px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      left: 20px;
-      transform: translateY(-50%);
-      border: 3px solid white;
+      object-fit: cover;
+      border: 4px solid #ff6b35;
     }
-    
+
+    .header h1 {
+      margin: 0;
+      font-weight: 600;
+      color: #ff6b35;
+    }
+
+    .header p {
+      margin: 0;
+      color: #555;
+      font-size: 14px;
+    }
+
+    /* Table Card */
+    .table-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+
     .table th {
-      background-color: #4b6cb7;
-      color: white;
+      background: #ff6b35;
+      color: #fff;
+      border: none;
     }
-    
-    .table-striped tbody tr:nth-of-type(odd) {
-      background-color: #dce3f2;
+
+    .table td {
+      vertical-align: middle;
     }
-    
+
+    .badge-role {
+      background: #ffae35;
+      color: #000;
+      font-weight: 500;
+    }
   </style>
-  
 </head>
-  
+
 <body>
-  
-  <div class="container py-4">
+
+  <div class="container py-5">
+
+    <!-- HEADER -->
     <div class="header">
-      <img src="https://via.placeholder.com/80" alt="Company Logo">
-      <h1>Employee Dashboard</h1>
-      <p>Welcome to the SnapEats Team</p>
+      <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=200&q=80" alt="Employee">
+      <div>
+        <h1>Employee Dashboard</h1>
+        <p>Welcome to the SnapEats Team</p>
+      </div>
     </div>
 
-    <table class="table table-striped table-hover rounded shadow-sm">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-      </thead>
-      
-      <tbody id="employeeTable">
-        <!-- Employee data will be added here -->
-      </tbody>
-    </table>
+    <!-- TABLE -->
+    <div class="table-card">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody id="employeeTable">
+          <!-- JS inserts rows -->
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
   <script>
-    
     const employees = [
       { name: "Alice Johnson", email: "alice@example.com", role: "Manager" },
       { name: "Bob Smith", email: "bob@example.com", role: "Staff" },
@@ -78,17 +134,18 @@
     ];
 
     const tableBody = document.getElementById("employeeTable");
+
     employees.forEach(emp => {
-      const row = `<tr>
-        <td>${emp.name}</td>
-        <td>${emp.email}</td>
-        <td>${emp.role}</td>
-      </tr>`;
-      tableBody.innerHTML += row;
+      tableBody.innerHTML += `
+        <tr>
+          <td>${emp.name}</td>
+          <td>${emp.email}</td>
+          <td><span class="badge badge-role">${emp.role}</span></td>
+        </tr>
+      `;
     });
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
