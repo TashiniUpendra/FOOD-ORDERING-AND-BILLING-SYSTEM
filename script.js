@@ -1,4 +1,3 @@
-// ---------- Mock menu data ----------
 
 const MENU = [
   {
